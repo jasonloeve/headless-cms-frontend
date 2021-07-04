@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import './Navigation.scss';
+import './navigation.scss';
 
 class Navigation extends Component {
 
     render() {
         return (
             <nav>
-                <Link to="/">Home</Link>
-                <Link to="/portfolio">Portfolio</Link>
+                <div className="brand">
+                    Logo
+                </div>
+                {/*<Link to="/">Home</Link>*/}
+                {/*<Link to="/projects">Projects</Link>*/}
             </nav>
         )
     }

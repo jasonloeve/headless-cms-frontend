@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import './App.scss';
+import './app.scss';
 
-import Navigation from "./components/navigation/Navigation";
+import Navigation from './components/navigation/Navigation';
+import Footer from './components/footer/Footer'
 import Home from './views/home/Home';
 
 function App() {
@@ -17,13 +18,14 @@ function App() {
             {/* Navigation */}
             <Navigation />
 
-            {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
+            {/*Views / Pages*/}
             <Switch>
 
-                {/* Portfolio Page */}
-                <Route path="/portfolio">
-                    Portfolio
-                </Route>
+                {/*Router has been left in code for future use when setting up a projects page*/}
+                {/* Projects Pages */}
+                {/*<Route path="/projects">*/}
+                {/*    Projects*/}
+                {/*</Route>*/}
 
                 {/* Home Page */}
                 <Route path="/">
@@ -31,6 +33,9 @@ function App() {
                 </Route>
 
             </Switch>
+
+            {/*Footer*/}
+            <Footer />
 
         </Router>
     );

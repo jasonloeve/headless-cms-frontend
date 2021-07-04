@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import './Home.scss';
+import Hero from '../../components/hero/Hero';
+import Projects from '../../components/projects/Projects';
+
+import './home.scss';
 
 class Home extends Component {
 
@@ -14,9 +17,32 @@ class Home extends Component {
     }
 
     // Get data from Craft CMS
-
     getData(){
-        const query = `{ping}`;
+        const query = `
+            {
+              hero: entries(section: [home]) {
+                ... on Home {
+                  backgroundImage {
+                    url
+                  }
+                  heading
+                  shortDescription
+                }
+              }
+              projects: entries(section: [projects]) {
+                ... on Projects {
+                  thumbnail {
+                    url
+                  }
+                  title
+                  richText {
+                    content
+                  }
+                }
+              }
+            }
+        `;
+
         const content = { query: query };
         const headers = {
             'Authorization': 'Bearer ' + process.env.REACT_APP_API_KEY,
@@ -35,22 +61,27 @@ class Home extends Component {
 
         const data = this.state.data;
 
-        // Dev only, checking data is fetched
-
+        // Dev - Data check
         console.log('data',data);
 
         return (
-            <main>
+            <React.Fragment>
+
                 {data && (
                     <React.Fragment>
-                        {data.ping}
+
+                        {/*Hero Component*/}
+                        <Hero data={{ background: data.hero[0].backgroundImage, heading: data.hero[0].heading, text: data.hero[0].shortDescription }} />
+
+                        {/*Projects Component - TODO: split iteration*/}
+                        <Projects data={data.projects} />
+
                     </React.Fragment>
                 )}
-            </main>
+
+            </React.Fragment>
         )
     }
-
-    // Function to be last
 
     componentDidMount(){
         this.getData();
