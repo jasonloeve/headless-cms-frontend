@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Hero from '../../components/hero/Hero';
 import Projects from '../../components/projects/Projects';
 
-import { GET_HOME_QUERY } from '../../graphql/Home'; // https://stackoverflow.com/questions/40560660/es6-how-to-import-const-after-export
+import { GET_HOME_QUERY } from '../../graphql/Home';
 
 import './home.scss';
 
@@ -20,33 +20,7 @@ class Home extends Component {
 
     // Get data from Craft CMS
     getData(){
-
-        const query = `
-            {
-              hero: entries(section: [home]) {
-                ... on Home {
-                  backgroundImage {
-                    url
-                  }
-                  heading
-                  shortDescription
-                }
-              }
-              projects: entries(section: [projects]) {
-                ... on Projects {
-                  thumbnail {
-                    url
-                  }
-                  title
-                  richText {
-                    content
-                  }
-                }
-              }
-            }
-        `;
-
-        const content = { query: query };
+        const content = { query: GET_HOME_QUERY }; // Detached query in graphql directory
         const headers = {
             'Authorization': 'Bearer ' + process.env.REACT_APP_API_KEY,
             'Accept': 'application/json',
@@ -64,8 +38,6 @@ class Home extends Component {
 
         const data = this.state.data;
 
-        console.log(GET_HOME_QUERY)
-
         // Dev - Data check
         console.log('data',data);
 
@@ -78,7 +50,7 @@ class Home extends Component {
                         {/*Hero Component*/}
                         <Hero data={{ background: data.hero[0].backgroundImage, heading: data.hero[0].heading, text: data.hero[0].shortDescription }} />
 
-                        {/*Projects Component - TODO: split iteration*/}
+                        {/*Projects Component - TODO: detach iteration to make more global*/}
                         <Projects data={data.projects} />
 
                     </React.Fragment>
