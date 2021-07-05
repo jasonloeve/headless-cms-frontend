@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Hero from '../../components/hero/Hero';
 import Projects from '../../components/projects/Projects';
 
+import { GET_HOME_QUERY } from '../../graphql/Home'; // https://stackoverflow.com/questions/40560660/es6-how-to-import-const-after-export
+
 import './home.scss';
 
 class Home extends Component {
@@ -18,6 +20,7 @@ class Home extends Component {
 
     // Get data from Craft CMS
     getData(){
+
         const query = `
             {
               hero: entries(section: [home]) {
@@ -60,6 +63,8 @@ class Home extends Component {
     render() {
 
         const data = this.state.data;
+
+        console.log(GET_HOME_QUERY)
 
         // Dev - Data check
         console.log('data',data);
